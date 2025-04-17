@@ -13,6 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Rota de teste (ex: cadastro simples)
 app.post('/api/register', async (req, res) => {
   const { nome, telefone } = req.body;
   try {
@@ -24,19 +25,25 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// Página inicial
 app.get('/', (req, res) => {
   res.send('MozBet com Firebase está online!');
 });
 
-const authRoutes = require('./routes/auth');
-const betRoutes = require('./routes/bets');
-const walletRoutes = require('./routes/wallet');
-const jackpotRoutes = require('./routes/jackpot');
+// Rotas (serão ativadas quando você adicionar os arquivos)
+try {
+  const authRoutes = require('./routes/auth');
+  const betRoutes = require('./routes/bets');
+  const walletRoutes = require('./routes/wallet');
+  const jackpotRoutes = require('./routes/jackpot');
 
-app.use('/api', authRoutes);
-app.use('/api', betRoutes);
-app.use('/api', walletRoutes);
-app.use('/api', jackpotRoutes);
+  app.use('/api', authRoutes);
+  app.use('/api', betRoutes);
+  app.use('/api', walletRoutes);
+  app.use('/api', jackpotRoutes);
+} catch (err) {
+  console.log('Algumas rotas ainda não foram adicionadas.');
+}
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
